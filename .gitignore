@@ -1,0 +1,22 @@
+# Personal
+.vscode/
+.idea/
+pyrightconfig.json
+todo.md
+
+# Python
+__pycache__/
+.venv/
+
+# Django
+migrations/
+metadata.json
+
+# React
+node_modules/
+build/
+.env
+
+# Data
+backup/
+.data/

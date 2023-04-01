@@ -26,15 +26,15 @@ engine = create_engine(
 )
 
 
-CHUNKSIZE=1000000
-DATASETS = {
-    "turnovermember": "Справочник участников оборота товаров.csv",
-    "product": "Справочник продукции.csv",
-    "salepoint": "Справочник торговых точек.csv",
-    # "productintro": "Данные о вводе товаров в оборот с 2021-11-22 по 2022-11-21.csv",
-    # "productmovement": "Данные о перемещениях товаров между участниками с 2021-11-22 по 2022-11-21.csv",
-    # "productwithdrawal": "Данные о выводе товаров из оборота с 2021-11-22 по 2022-11-21.csv",
-}
+CHUNKSIZE = 1000000
+DATASETS = (
+    ("turnovermember", "TurnoverMember.csv"),
+    ("product", "Product.csv"),
+    ("salepoint", "SalePoint.csv"),
+    ("productintro", "ProductIntro.csv"),
+    ("productmovement", "ProductMovement.csv"),
+    *tuple(("productwithdrawal", f"ProductWithdrawal{i}.csv") for i in range(1, 7)),
+)
 
 
 def fill_table(table, csv_path):
@@ -48,7 +48,8 @@ def test_run():
     print(TurnoverMember.objects.all()[:10])
 
 
-for table_name, csv_name in DATASETS.items():
-    fill_table("base_" + table_name, "./.data/" + csv_name)
+for table_name, csv_name in DATASETS:
+    # fill_table("base_" + table_name, "./.data/" + csv_name)
+    print(table_name, csv_name)
 
 # test_run()

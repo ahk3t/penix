@@ -3,7 +3,7 @@ import pandas as pd
 from prophet import Prophet
 from rest_framework.views import Response
 
-from base.models.products import ProductWithdrawal, SalePoint, TurnoverMember
+from base.models.products import ProductWithdrawal, Prospect, SalePoint, Scam, TurnoverMember
 
 
 class MemberSerializer(serializers.ModelSerializer):
@@ -25,6 +25,8 @@ class MemberSerializerWithFuture(MemberSerializer):
     Meta = MemberSerializer.Meta
 
     future = serializers.SerializerMethodField()
+    quality_factor = serializers.SerializerMethodField()
+    prospect_factor = serializers.SerializerMethodField()
 
     def get_future(self, point):
         qs = ProductWithdrawal.objects.filter(inn=point.inn.inn)
@@ -46,3 +48,9 @@ class MemberSerializerWithFuture(MemberSerializer):
         fcst["ds"] = pd.to_datetime(fcst['ds']).dt.date
 
         return fcst[["ds", "trend"]].to_dict(orient="records")
+
+    def get_quality_factor(self, point):
+        return Scam.objects.get(inn=point.inn.inn)
+
+    def get_prospect_factor(self, point):
+        return Prospect.objects.get(inn=point.inn.inn)

@@ -95,3 +95,25 @@ class ProductWithdrawal(models.Model):
     type_operation = models.CharField(max_length=128)
     price = models.DecimalField(max_digits=32, decimal_places=12)
     cnt = models.IntegerField()
+
+
+# Промежуточный подсчет
+class Prospect(models.Model):
+    inn = models.ForeignKey(
+        to=TurnoverMember,
+        on_delete=CASCADE,
+        related_name="prospect_inn",
+        db_column="inn",
+    )
+    gtin = models.CharField(max_length=64)
+    prospect_factor = models.DecimalField(max_digits=32, decimal_places=12)
+
+
+class Scam(models.Model):
+    inn = models.ForeignKey(
+        to=TurnoverMember,
+        on_delete=CASCADE,
+        related_name="scam_inn",
+        db_column="inn",
+    )
+    quality_factor = models.DecimalField(max_digits=32, decimal_places=12)

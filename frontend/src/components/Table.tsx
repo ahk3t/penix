@@ -19,6 +19,8 @@ const ResultTable = ({
   setCurrentPage,
   quantity,
   isLoading,
+  handleAscDesc,
+  handleSort,
 }) => {
   const renderRows = data.map((item, index) => (
     <Tr key={index}>
@@ -36,7 +38,11 @@ const ResultTable = ({
   return (
     <Container mt="0px" mb="80px">
       <Flex alignItems="center" justifyContent="space-between">
-        {/* <Sort /> */}
+        <Sort
+          isLoading={isLoading}
+          handleSort={handleSort}
+          handleAscDesc={handleAscDesc}
+        />
         <Pagination
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}

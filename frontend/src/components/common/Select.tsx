@@ -17,6 +17,7 @@ const FormSelect = ({ isDisabled, placeholder, options, setValue, value }) => {
       isDisabled={isDisabled}
       onChange={handleChange}
       value={value}
+      ml="10px"
     >
       {renderOptions}
     </Select>

@@ -1,17 +1,29 @@
-import django_filters
+from django_filters import NumberFilter, FilterSet, CharFilter
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.views import models
+
+from base.models.products import SalePoint
 
 
-class ProductFilter(django_filters.FilterSet):
-    price = django_filters.NumberFilter()
-    price__gt = django_filters.NumberFilter(field_name='price', lookup_expr='gt')
-    price__lt = django_filters.NumberFilter(field_name='price', lookup_expr='lt')
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 20
+    page_size_query_param = "page_size"
+    max_page_size = 1000
 
-    release_year = django_filters.NumberFilter(field_name='release_date', lookup_expr='year')
-    release_year__gt = django_filters.NumberFilter(field_name='release_date', lookup_expr='year__gt')
-    release_year__lt = django_filters.NumberFilter(field_name='release_date', lookup_expr='year__lt')
 
-    manufacturer__name = django_filters.CharFilter(lookup_expr='icontains')
+class MemberFilterSet(FilterSet):
+    location_region_code = NumberFilter(field_name="region_code")
+    register_region_code = NumberFilter(field_name="inn__region_code")
+    inn = CharFilter(field_name="inn", lookup_expr="inn__icontains")
 
     class Meta:
-        model = Product
-        fields = ['price', 'release_date', 'manufacturer']
+        model = SalePoint
+        exclude = ["region_code"]
+        filter_overrides = {
+            models.CharField: {
+                "filter_class": CharFilter,
+                "extra": lambda f: {
+                    "lookup_expr": "icontains",
+                },
+            },
+        }

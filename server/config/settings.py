@@ -8,7 +8,6 @@ metadata = json.load(open(BASE_DIR / "metadata.json"))
 
 # SECURITY
 SECRET_KEY = metadata["secret-key"]
-DEBUG = True
 ALLOWED_HOSTS = []
 # ALLOWED_HOSTS = ['45.143.138.11']
 CSRF_COOKIE_SECURE = True
@@ -22,6 +21,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "corsheaders",
+    'django_filters',
     "base.apps.BaseConfig",
 ]
 MIDDLEWARE = [
@@ -33,6 +33,19 @@ MIDDLEWARE = [
 ]
 ROOT_URLCONF = "config.urls"
 WSGI_APPLICATION = "config.wsgi.application"
+
+# Debug
+DEBUG = True
+if DEBUG:
+    INSTALLED_APPS += ["debug_toolbar"]
+    MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
+    INTERNAL_IPS = ["127.0.0.1"]
+    TEMPLATES = [
+        {
+            "BACKEND": "django.template.backends.django.DjangoTemplates",
+            "APP_DIRS": True,
+        }
+    ]
 
 # Database
 DATABASES = {"default": metadata["database-default"]}
@@ -71,7 +84,7 @@ MEDIA_URL = "media/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # CORS
-CORS_ALLOW_ALL_ORIGINS = True # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
@@ -83,9 +96,9 @@ CORS_ALLOW_CREDENTIALS = True
 # REST framework extensions
 REST_FRAMEWORK = {
     "COERCE_DECIMAL_TO_STRING": False,
-    "DEFAULT_RENDERER_CLASSES": [
-        "rest_framework.renderers.JSONRenderer",
-    ],
+    # "DEFAULT_RENDERER_CLASSES": [
+    #     "rest_framework.renderers.JSONRenderer",
+    # ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],

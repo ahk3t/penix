@@ -15,6 +15,7 @@ function reset_db() {
     rm -rf $BASE_DIR/base/migrations
     python $BASE_DIR/manage.py makemigrations base
     python $BASE_DIR/manage.py migrate
+    python $BASE_DIR/bin/initdb.py
 }
 
 check_bin psql

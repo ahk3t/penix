@@ -11,5 +11,6 @@ urlpatterns = [
     # path("users/<int:id>", user.UserDetail.as_view()),
     # path("users/authenticated", user.AuthenticatedUserDetail.as_view()),
 
-    path("members", products.TurnoverMemberList.as_view()),
+    path("members", products.MemberList.as_view()),
+    path("members/<str:pk>", products.MemberDetail.as_view()),
 ]

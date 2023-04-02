@@ -31,7 +31,12 @@ const DetailsPage = () => {
     <>
       <Box pt="50px" backgroundColor="gray.background">
         <Container>
-          <NextLink href={`/${window.location.search}`} passHref>
+          <NextLink
+            href={`/${
+              typeof window !== "undefined" ? window.location.search : ""
+            }`}
+            passHref
+          >
             <Button width="100px" backgroundColor="gray.200" variant="outline">
               Назад
             </Button>
@@ -109,7 +114,7 @@ const DetailsPage = () => {
                 70%
               </Heading>
             </Box>
-            <DoughnutChart />
+            <DoughnutChart value={70} />
           </Box>
           <Box
             bottom="300px"
@@ -150,7 +155,7 @@ const DetailsPage = () => {
         <Heading variant="h2" fontSize="2xl" mb="40px" mt="70px">
           Прогноз по изменению выручки за 3 месяца
         </Heading>
-        <LineChart />
+        {data?.future && <LineChart data={data.future} />}
       </Container>
     </>
   );

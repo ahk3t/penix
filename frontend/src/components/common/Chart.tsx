@@ -24,7 +24,10 @@ ChartJS.register(
   Title
 );
 
-export const LineChart = () => {
+export const LineChart = ({ data }) => {
+  const labels = data?.map((item) => item.ds);
+  const datasets = data?.map((item) => item.trend);
+
   return (
     <Line
       options={{
@@ -35,18 +38,10 @@ export const LineChart = () => {
         },
       }}
       data={{
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-        ],
+        labels: labels,
         datasets: [
           {
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: datasets,
             fill: false,
             borderColor: "#f6f42f",
             tension: 0.1,
@@ -58,20 +53,20 @@ export const LineChart = () => {
   );
 };
 
-export const DoughnutChart = () => {
+export const DoughnutChart = ({ value }) => {
   return (
     <Doughnut
       data={{
         datasets: [
           {
-            data: [70],
+            data: [value || 0],
             backgroundColor: "#f6f42f",
             hoverOffset: 2,
           },
         ],
       }}
       options={{
-        circumference: 3.6 * 70,
+        circumference: 3.6 * (value || 0),
       }}
     />
   );

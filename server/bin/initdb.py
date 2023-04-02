@@ -59,7 +59,7 @@ DATASETS = (
     ("salepoint", "SalePoint.csv", _check_member_inn("inn")),
     ("productintro", "ProductIntro.csv", _check_member_inn("inn")),
     ("productmovement", "ProductMovement.csv", _check_member_inn("sender_inn", "receiver_inn")),
-    ("productwithdrawal", f"ProductWithdrawal6.csv", _check_point_id)
+    ("productwithdrawal", "ProductWithdrawal6.csv", _check_point_id),
     # *tuple(("productwithdrawal", f"ProductWithdrawal{i}.csv") for i in range(1, 7)),
 )
 

@@ -43,4 +43,6 @@ class MemberSerializerWithFuture(MemberSerializer):
         future["cap"] = 20
         fcst = m.predict(future)
 
+        fcst["ds"] = pd.to_datetime(fcst['ds']).dt.date
+
         return fcst[["ds", "trend"]].to_dict(orient="records")

@@ -105,7 +105,6 @@ class Prospect(models.Model):
         related_name="prospect_inn",
         db_column="inn",
     )
-    gtin = models.CharField(max_length=64)
     prospect_factor = models.DecimalField(max_digits=32, decimal_places=12)
 
 

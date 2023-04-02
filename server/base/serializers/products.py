@@ -50,7 +50,13 @@ class MemberSerializerWithFuture(MemberSerializer):
         return fcst[["ds", "trend"]].to_dict(orient="records")
 
     def get_quality_factor(self, point):
-        return Scam.objects.get(inn=point.inn.inn)
+        try:
+            return Scam.objects.filter(inn=point.inn.inn)[0].quality_factor
+        except:
+            return None
 
     def get_prospect_factor(self, point):
-        return Prospect.objects.get(inn=point.inn.inn)
+        try:
+            return Prospect.objects.filter(inn=point.inn.inn)[0].prospect_factor
+        except:
+            return None

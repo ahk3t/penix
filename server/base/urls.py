@@ -13,4 +13,5 @@ urlpatterns = [
 
     path("members", products.MemberList.as_view()),
     path("members/<str:pk>", products.MemberDetail.as_view()),
+    # path("member_future/<str:pk>", products.MemberFuture.as_view()),
 ]

@@ -55,11 +55,11 @@ def _check_point_id(df):
 CHUNKSIZE = 1000000
 DATASETS = (
     ("turnovermember", "TurnoverMember.csv"),
-    # ("product", "Product.csv", _prepare_products),
+    ("product", "Product.csv", _prepare_products),
     ("salepoint", "SalePoint.csv", _check_member_inn("inn")),
-    # ("productintro", "ProductIntro.csv", _check_member_inn("inn")),
-    # ("productmovement", "ProductMovement.csv", _check_member_inn("sender_inn", "receiver_inn")),
-    # ("productwithdrawal", f"ProductWithdrawal6.csv", _check_point_id)
+    ("productintro", "ProductIntro.csv", _check_member_inn("inn")),
+    ("productmovement", "ProductMovement.csv", _check_member_inn("sender_inn", "receiver_inn")),
+    ("productwithdrawal", f"ProductWithdrawal6.csv", _check_point_id)
     # *tuple(("productwithdrawal", f"ProductWithdrawal{i}.csv") for i in range(1, 7)),
 )
 

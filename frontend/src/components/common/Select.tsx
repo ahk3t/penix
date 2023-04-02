@@ -1,17 +1,6 @@
 import { Select } from "@chakra-ui/react";
 
-const mockOpotions = [
-  { value: "1", title: "1" },
-  { value: "2", title: "2" },
-  { value: "3", title: "3" },
-];
-const FormSelect = ({
-  isDisabled,
-  placeholder,
-  options = mockOpotions,
-  setValue,
-  value,
-}) => {
+const FormSelect = ({ isDisabled, placeholder, options, setValue, value }) => {
   const handleChange = (event) => {
     setValue(event.target.value);
   };

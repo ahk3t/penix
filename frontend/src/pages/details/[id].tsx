@@ -47,6 +47,18 @@ const DetailsPage = () => {
           <Heading variant="h3" color="gray.text">
             Ретейлер
           </Heading>
+          <Heading
+            variant="h4"
+            color="gray.text"
+            p="10px"
+            border="3px solid red"
+            borderRadius="30"
+            width="250px"
+            mt="10px"
+          >
+            Подозрительность{" "}
+            {data?.quality_factor ? data?.quality_factor : "  ---"}
+          </Heading>
           <Card width="600px" mt="100px">
             <CardHeader>
               <Heading variant="h3">Название компании</Heading>
@@ -111,10 +123,10 @@ const DetailsPage = () => {
                 mb="-24px"
                 color="gray.text"
               >
-                70%
+                {data?.prospect_factor ? data?.prospect_factor : "0"}%
               </Heading>
             </Box>
-            <DoughnutChart value={70} />
+            <DoughnutChart value={data?.prospect_factor || 0} />
           </Box>
           <Box
             bottom="300px"
@@ -146,7 +158,7 @@ const DetailsPage = () => {
               Изменение спроса через 3 месяца:
             </Text>
             <Box fontSize="xl" color="yellow" ml="20px" fontWeight="bolder">
-              13%
+              {data?.growth_factor ? data?.growth_factor + "%" : "-"}
             </Box>
           </Flex>
         </Container>

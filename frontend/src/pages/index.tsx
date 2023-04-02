@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useSetState } from "react-use";
 
 import { fetchAPI } from "@/api";
 import Filter from "@/components/Filter";
@@ -12,14 +13,38 @@ function AllData() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [quantity, setQuantity] = useState(0);
+  const [dataSort, setDataSort] = useSetState({
+    ascDesc: "asc",
+    sort: "",
+  });
 
   const length = 10;
   useEffect(() => {
     router?.query?.page && setCurrentPage(+router.query.page);
   }, []);
+
+  useEffect(() => {
+    if (dataSort.sort.length <= 0) return;
+    setIsLoading(true);
+    setCurrentPage(1);
+    fetchAPI(`members?${dataSort.sort}=${dataSort.ascDesc}`).then((res) => {
+      setData(res.results);
+      setQuantity(Math.round(res.count / 10));
+    });
+
+    setIsLoading(false);
+  }, [dataSort.sort, dataSort.ascDesc]);
+
   useEffect(() => {
     setIsLoading(true);
-    fetchAPI(`members?page=${currentPage}&page_size=${length}`).then((res) => {
+    console.log(dataSort.sort.length);
+    fetchAPI(
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      `members?page=${currentPage}&page_size=${length}` +
+        (dataSort.sort.length > 0
+          ? `&${dataSort.sort}=${dataSort.ascDesc}`
+          : "")
+    ).then((res) => {
       setData(res.results);
       setQuantity(Math.round(res.count / 10));
     });
@@ -57,6 +82,8 @@ function AllData() {
         setCurrentPage={setCurrentPage}
         quantity={quantity}
         isLoading={isLoading}
+        handleAscDesc={(data) => setDataSort({ ascDesc: data })}
+        handleSort={(data) => setDataSort({ sort: data })}
       />
     </>
   );

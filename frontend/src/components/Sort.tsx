@@ -10,8 +10,8 @@ const mockOpotions = [
   { value: "quality_factor", title: "Подозрительность" },
 ];
 const mockAsc = [
-  { value: "asc", title: "asc" },
-  { value: "desc", title: "desc" },
+  { value: "asc", title: "По возрастанию" },
+  { value: "desc", title: "По убыванию" },
 ];
 const Sort = ({ isLoading, handleSort, handleAscDesc, ...props }) => {
   const [sort, setSort] = useState(null);
@@ -23,7 +23,7 @@ const Sort = ({ isLoading, handleSort, handleAscDesc, ...props }) => {
   };
   return (
     <Flex alignItems="center">
-      <Text mr="30px">Sort:</Text>
+      <Text mr="30px">Сортировка:</Text>
       <FormSelect
         placeholder={"Параметр"}
         isDisabled={isLoading}
@@ -32,7 +32,7 @@ const Sort = ({ isLoading, handleSort, handleAscDesc, ...props }) => {
         options={mockOpotions}
       />
       <FormSelect
-        placeholder={"asc/desc"}
+        placeholder={"По возрастанию / По убыванию"}
         isDisabled={isLoading}
         setValue={(data) => {
           setAscDesc(data);
